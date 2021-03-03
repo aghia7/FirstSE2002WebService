@@ -1,12 +1,12 @@
 package repositories.interfaces;
 
+import dtos.LoginDto;
 import entities.User;
+import repositories.interfaces.base.IRepository;
 
-import java.util.List;
+public interface IUserRepository extends IRepository<User> {
 
-public interface IUserRepository {
-    boolean createUser(User user);
-    User getUser(int id);
-    List<User> getAllUsers();
-    boolean deleteUser(int id);
+    User getUserByLogin(String username, String password);
+
+    User getUserByUsername(String issuer);
 }

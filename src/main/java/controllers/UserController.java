@@ -1,7 +1,8 @@
 package controllers;
 
 import entities.User;
-import repositories.interfaces.IUserRepository;
+import filters.customAnnotations.JWTTokenNeeded;
+import services.interfaces.IUserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -9,17 +10,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@JWTTokenNeeded
 @Path("users")
 public class UserController {
     @Inject
-    private IUserRepository repo;
+    private IUserService userService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
         List<User> users;
         try {
-            users = repo.getAllUsers();
+            users = userService.getAll();
         } catch (ServerErrorException ex) {
             return Response
                     .status(500).entity(ex.getMessage()).build();
@@ -36,7 +38,7 @@ public class UserController {
     public Response createUser(User user) {
         boolean created;
         try {
-            created = repo.createUser(user);
+            created = userService.create(user);
         } catch (ServerErrorException ex) {
             return Response.serverError().entity(ex.getMessage()).build();
         }
@@ -60,7 +62,7 @@ public class UserController {
     public Response getUser(@PathParam("id") int id) {
         User user;
         try {
-            user = repo.getUser(id);
+            user = userService.get(id);
         } catch (ServerErrorException ex) {
             return Response
                     .status(500).entity(ex.getMessage()).build();
@@ -91,7 +93,7 @@ public class UserController {
         boolean removed;
 
         try {
-            removed = repo.deleteUser(id);
+            removed = userService.delete(id);
         } catch (ServerErrorException ex) {
             return Response
                     .status(500).entity(ex.getMessage()).build();

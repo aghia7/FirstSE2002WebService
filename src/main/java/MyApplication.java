@@ -8,5 +8,6 @@ public class MyApplication extends ResourceConfig {
     public MyApplication() {
         register(new MyApplicationBinder());
         packages("controllers");
+        packages("filters");
     }
 }

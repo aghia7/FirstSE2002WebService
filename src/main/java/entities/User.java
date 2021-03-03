@@ -5,22 +5,24 @@ public class User {
     private String name;
     private String surname;
     private boolean gender;
+    private String username;
+    private String password;
 
     public User() {
 
     }
 
-    public User(String name, String surname, boolean gender) {
+    public User(String name, String surname, boolean gender, String username, String password) {
         setName(name);
         setSurname(surname);
         setGender(gender);
+        setUsername(username);
+        setPassword(password);
     }
 
-    public User(int id, String name, String surname, boolean gender) {
+    public User(int id, String name, String surname, boolean gender, String username, String password) {
+        this(name, surname, gender, username, password);
         setId(id);
-        setName(name);
-        setSurname(surname);
-        setGender(gender);
     }
 
     public int getId() {
@@ -55,8 +57,20 @@ public class User {
         this.gender = gender;
     }
 
-    public void myFunction() {
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override
